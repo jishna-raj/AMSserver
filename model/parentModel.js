@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const parentSchema = new mongoose.Schema({
-    _id: {
+    child_id: {
         type: String,
         required: true,
     },
@@ -21,20 +21,7 @@ const parentSchema = new mongoose.Schema({
     childname: {
         type: String,
         required: true,
-    },
-    children: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Child',
-        required: true,
-    }],
-    createdAt: {
-        type: Date,
-        default: Date.now,
-    },
-    updatedAt: {
-        type: Date,
-        default: Date.now,
-    },
+    }
 
 });
 

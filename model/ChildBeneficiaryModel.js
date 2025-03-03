@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const childSchema = new Schema({
+const childBeneficiarySchema = new Schema({
   name: { type: String, required: true },
   age: { type: Number, required: true },
   gender: { type: String, enum: ['Male', 'Female', 'Other'], required: true },
@@ -12,7 +12,10 @@ const childSchema = new Schema({
     state: String,
     zipCode: String
   },
-  parent: { type: Schema.Types.ObjectId, ref: 'Parent', required: true },
+  parent: { 
+    type: String,
+    required: true 
+  },
   healthRecords: [
     {
       date: { type: Date, required: true },
@@ -27,12 +30,35 @@ const childSchema = new Schema({
     status: { type: String, enum: ['Normal', 'Underweight', 'Overweight'], required: true }
   },
   educationDetails: {
-    preschoolName: String,
-    enrollmentDate: Date,
-    progress: String
-  }
+    preschoolName: {
+      type: String,
+      required: true,
+    },
+    enrollmentDate: {
+      type: Date,
+      required: true,
+    },
+    progress: {
+      type: String,
+      required: true,
+    },
+  },
+  
+  lastVisitDate: {
+    type: Date,
+    default: null, 
+  },
+  
+  vaccinationDetails: [
+    {
+      vaccineName: { type: String, required: true }, 
+      dateAdministered: { type: Date, required: true }, 
+      administeredBy: { type: String, required: true },
+      notes: { type: String }
+    }
+  ]
 });
 
-const Child = mongoose.model('Child', childSchema);
+const childBeneficiary = mongoose.model('childBeneficiary', childBeneficiarySchema);
 
-module.exports = Child;
+module.exports = childBeneficiary;

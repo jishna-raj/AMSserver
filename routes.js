@@ -9,8 +9,10 @@ const router = new express.Router()
 
 //to register
 
-router.post('/admin-reg',usercontroller.registerController)
-router.post('/admin-log', usercontroller.loginController)
+router.post('/admin-reg',usercontroller.registerAdminController)
+router.post('/reg-worker',usercontroller.registerWorkerController)
+/* 
+router.post('/admin-log', usercontroller.loginController) */
 
 
 

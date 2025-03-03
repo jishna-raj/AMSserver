@@ -18,15 +18,10 @@ const userSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        enum: ['admin', 'worker', 'healthOfficial'],
+        enum: ['admin', 'worker'],
         required: true,
     },
-    firstName: {
-        type: String
-    },
-    lastName: {
-        type: String
-    },
+
     phoneNumber: {
         type: String,
         
@@ -35,12 +30,12 @@ const userSchema = new mongoose.Schema({
         type: String,
         
     },
-    profileImg:{
-        type:String
+    workerId:{
+        type:String,
     }
     
 });
 
-const User = mongoose.model('User', userSchema);
+const Users = mongoose.model('Users', userSchema);
 
-module.exports = User;
+module.exports = Users;

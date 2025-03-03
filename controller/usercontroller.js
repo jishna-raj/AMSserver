@@ -1,78 +1,82 @@
-const users = require('../model/userModel')
-const jwt = require("jsonwebtoken")
+const Users = require('../model/userModel');
 
 
-exports.registerController = async (req, res)=> {
-
-
-    const { username, email, password } = req.body
-    console.log(username, email, password);
-
+exports.registerAdminController = async (req, res) => {
+    const { username, email, password } = req.body;
 
     try {
-
-        const existingUser = await users.findOne({ email })
-
+        // Check for existing user
+        const existingUser = await Users.findOne({ $or: [{ username }, { email }] });
         if (existingUser) {
-            res.status(406).json('already exist')
-        }
-
-        else {
-            const newUser = new users({
+            return res.status(400).json({ message: "Username or email already exists" });
+        } else {
+            const newAdmin = new Users({
                 username,
                 email,
-                password,
-                role: 'inputRole', // 'admin', 'worker', or 'healthOfficial'
-                firstName:'',
-                lastName:'',
-                phoneNumber: '',
-                address: '',
-               
-                profileImg: '',
+                password, // Still in plain text (not recommended)
+                role: "admin",
+                phoneNumber: "", // Add empty values for optional fields
+                address: "",
+                workerId: "" // Empty for admin
             });
-            
-            
-            await newUser.save()
-            res.status(200).json(newUser)
 
+            await newAdmin.save();
+
+            // For success response (status 201 is more appropriate for creation)
+            res.status(201).json({
+                message: "Admin registered successfully",
+                user: newAdmin
+            });
         }
 
-    } catch (err) {
-        res.status(401).json(err)
+
+
+
+
+        res.status(201).json({ message: "Admin registered successfully" });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
     }
+};
 
-
-
-} 
-
-
-
-
-exports.loginController = async(req,res)=>{
-
-    const {email,password} = req.body
-
-    console.log(email,password);
- 
-
+// Worker Registration
+exports.registerWorkerController = async (req, res) => {
+    console.log("inside worker");
+    
+    const { username, email, password, workerId } = req.body;
+  
     try {
-        const existingUser = await users.findOne({email,password})
-
-
-        if(existingUser){
-
-            const token = jwt.sign({userId:existingUser._id},'superkey')
-
-            res.status(200).json({existingUser,token})
-        }
-        else{
-            res.status(406).json('account doesnot exist')
-        }
-            
-        }
-        catch (error) {
-        res.status(401).json(error)
+      // 1. Check for existing user first
+      const existingUser = await Users.findOne( {workerId});
+  
+      if (existingUser) {
+         res.status(400).json({ // Add RETURN here
+          message: "Username, email, or worker ID already exists"
+        });
+      }
+  
+      // 2. Create new user
+      const newWorker = new Users({
+        username,
+        email,
+        password,
+        role: "worker",
+        workerId,
+        phoneNumber: "",
+        address: ""
+      });
+  
+      // 3. Save to database
+      await newWorker.save();
+  
+      // 4. Send single response
+      res.status(201).json({
+        message: "Worker registered successfully",
+        user: newWorker
+      });
+  
+    } catch (error) {
+    
+      console.error("Registration error:", error);
     }
-}
-
-
+  };
