@@ -15,6 +15,11 @@ const childSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  childImage:{
+    type:String,
+    required:true
+    
+},
   gender: {
     type: String,
     required: true,

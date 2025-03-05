@@ -21,7 +21,7 @@ AMSServer.use(router)
 
 
 
-
+AMSServer.use('/uploads',express.static('./uploads'))
 
 
 const PORT = 4000||PORT.env.process
