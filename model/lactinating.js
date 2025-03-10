@@ -1,20 +1,16 @@
 const mongoose = require('mongoose');
 
 const lactatingMotherSchema = new mongoose.Schema({
-  // Inherit all fields from the Beneficiary schema
-  _id: { 
-    type: String, 
-    required: true 
-  },
+ id:{
+  type:String,
+  unique:true,
+  required:true
+},
   name: {
     type: String,
     required: true
   },
-  type: {
-    type: String, 
-    enum: ['child', 'pregnantWoman', 'lactatingMother'],
-    required: true 
-  },
+
   dateOfBirth: { 
     type: Date,
     required: true 

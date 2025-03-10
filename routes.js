@@ -3,6 +3,14 @@ const usercontroller = require("./controller/usercontroller")
 
 const childController = require('./controller/childController')
 
+const inventoryController = require('./controller/inventoryController')
+
+const workerController = require('./controller/workerController')
+
+const childBeneficiaryController = require('./controller/ChildBeneficiaryController')
+
+const motherController = require('./controller/motherController')
+
 
 
 
@@ -51,7 +59,70 @@ router.delete('/delete-child/:id',childController.deleteChildController)
 
 
 
+/* Inventory */
 
+/* 1.add inventory */
+
+router.post('/add-inventory',inventoryController.addInventoryController)
+
+/* get all inventory */
+
+
+router.get('/all-inventory',inventoryController.getAllInventoryController)
+
+
+
+router.put('/update-inventory/:id',inventoryController.updateInventoryController)
+
+
+router.delete('/delete-inventory/:id',inventoryController.deleteInventoryController)
+
+
+
+/* workers...... */
+
+router.post('/add-worker',workerController.addworkerController)
+
+
+router.get('/all-worker',workerController.allWorkerController)
+
+
+router.get('/get-worker/:id', workerController.getAWorkerApi);
+
+router.put('/update-worker/:id',workerController.updateWorkerController)
+
+
+router.delete('/delete-worker/:id',workerController.workerDeleteController)
+
+
+
+/* child beneficiary */
+
+router.post('/add-childbeneficiary',childBeneficiaryController.addChildBeneficiaryController)
+
+
+
+router.get('/all-childbeneficiaries',childBeneficiaryController.getallchildbeneficiaryController)
+
+router.get('/a-childbeneficiary/:id',childBeneficiaryController.getAchildBeneficiaryController)
+
+
+router.put('/update-childbeneficiary/:id',childBeneficiaryController.updateChildbeneficiariesController)
+
+
+
+router.delete('/delete-childbeneficiaries/:id',childBeneficiaryController.deleteChildBeneficiaries)
+
+
+
+
+/* lactinating */
+
+
+router.post('/add-lact',motherController.addMotherController)
+
+
+router.get('all-mother',motherController)
 
 
 

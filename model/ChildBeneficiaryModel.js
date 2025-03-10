@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 
 const childBeneficiarySchema = new mongoose.Schema({
-  id: { type: String, required: true, unique: true },
+  
   name: { type: String, required: true },
   age: { type: Number, required: true },
   gender: { type: String, required: true },
@@ -13,14 +13,14 @@ const childBeneficiarySchema = new mongoose.Schema({
     state: { type: String, required: true },
     zipCode: { type: String, required: true },
   },
-  parent: { type: String, required: true }, // New field for parent's name
+  parent: { type: String, required: true }, // Single string field
   healthRecords: [
     {
       date: { type: Date, required: true },
       weight: { type: Number, required: true },
       height: { type: Number, required: true },
-      immunizations: [{ type: String }],
-      illnesses: [{ type: String }],
+      immunizations: [{ type: String }], // Array of strings
+      illnesses: [{ type: String }], // Array of strings
     },
   ],
   nutritionStatus: {
@@ -30,13 +30,13 @@ const childBeneficiarySchema = new mongoose.Schema({
   educationDetails: {
     preschoolName: { type: String, required: true },
     enrollmentDate: { type: Date, required: true },
-    progress: { type: String, required: true },
+    progress: { type: String, required: true }, // Changed from progressReport
   },
   guardian: {
     name: { type: String, required: true },
-    relationship: { type: String, required: true }, // e.g., "Father", "Mother", "Guardian"
-    contactNumber: { type: String, required: true },
-    email: { type: String }, // Optional
+    relationship: { type: String, required: true },
+    contactNumber: { type: String, required: true }, // Changed from contact
+    email: { type: String },
     address: {
       street: { type: String },
       city: { type: String },
@@ -44,18 +44,18 @@ const childBeneficiarySchema = new mongoose.Schema({
       zipCode: { type: String },
     },
   },
-  lastVisitDate: { type: Date }, // New field for last visit date
-  vaccinationDetails: [ // New field for vaccination details
+  lastVisitDate: { type: Date, required: true }, // Changed from lastVisit.date
+  vaccinationDetails: [
     {
-      vaccineName: { type: String },
-      dateAdministered: { type: Date },
-      administeredBy: { type: String },
+      vaccineName: { type: String, required: true },
+      dateAdministered: { type: Date, required: true },
+      administeredBy: { type: String, required: true },
       notes: { type: String },
     },
   ],
 });
 
-// Create the Child Beneficiary Model
+
 const ChildBeneficiary = mongoose.model('ChildBeneficiary', childBeneficiarySchema);
 
 module.exports = ChildBeneficiary;
