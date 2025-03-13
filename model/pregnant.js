@@ -75,6 +75,12 @@ const pregnantBeneficiarySchema = new Schema({
   lastVisitDate: { 
     type: Date, 
     default: null 
+  },
+  document:{
+    
+    type:String,
+    required:true
+
   }
 });
 

@@ -18,6 +18,7 @@ exports.registerAdminController = async (req, res) => {
         role: "admin",
         phoneNumber: "", // Add empty values for optional fields
         address: "",
+        status:"Active",
         workerId: "" // Empty for admin
       });
 
@@ -64,7 +65,8 @@ exports.registerWorkerController = async (req, res) => {
       role: "worker",
       workerId,
       phoneNumber: "",
-      address: ""
+      address: "",
+      status:"Active"
     });
 
     // 3. Save to database
@@ -153,3 +155,129 @@ exports.loginWorkerController = async (req, res) => {
     res.status(500).json({ message: 'Server error', error });
   }
 };
+
+
+
+exports.getalluserController = async(req,res) => {
+
+  try {
+    const users = await Users.find();
+
+    if (!users || users.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "No users found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Users fetched successfully",
+      data: users,
+    });
+  } catch (error) {
+    console.error("Error in getalluserController:", error);
+    res.status(500).json({
+      success: false,
+      message: "An error occurred while fetching users",
+      error: error.message,
+    });
+  }
+
+}
+
+
+exports.deleteUserController = async(req,res) =>{
+
+
+
+  try {
+    const { id } = req.params;
+    console.log(id);
+    
+
+   
+
+    const deletedUser = await Users.findByIdAndDelete(id);
+
+    if (!deletedUser) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "User deleted successfully",
+      data: deletedUser,
+    });
+  } catch (error) {
+    console.error("Error in deleteUserController:", error);
+    res.status(500).json({
+      success: false,
+      message: "An error occurred while deleting the user",
+      error: error.message,
+    });
+  }
+
+}
+
+exports.updateusercontroller = async(req,res)=>{
+
+
+  try {
+    const { id } = req.params; // Extract the user ID from the URL
+    const updatedData = req.body; // Extract the updated data from the request body
+
+   
+
+    // Validate the updated data (optional)
+    if (!updatedData || Object.keys(updatedData).length === 0) {
+      return res.status(400).json({
+        success: false,
+        message: "No data provided for update",
+      });
+    }
+
+    // Update the user in the database
+    const updatedUser = await Users.findByIdAndUpdate(
+      id,
+      updatedData,
+      { new: true, runValidators: true } // Return the updated document and run schema validators
+    );
+
+    // Check if the user was found and updated
+    if (!updatedUser) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    // Send a success response with the updated data
+    res.status(200).json({
+      success: true,
+      message: "User updated successfully",
+      data: updatedUser,
+    });
+  } catch (error) {
+    console.error("Error in updateusercontroller:", error);
+
+    // Handle validation errors
+    if (error.name === "ValidationError") {
+      return res.status(400).json({
+        success: false,
+        message: "Validation error",
+        error: error.message,
+      });
+    }
+
+    // Handle other errors
+    res.status(500).json({
+      success: false,
+      message: "An error occurred while updating the user",
+      error: error.message,
+    });
+  }
+}

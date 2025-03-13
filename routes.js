@@ -11,6 +11,13 @@ const childBeneficiaryController = require('./controller/ChildBeneficiaryControl
 
 const motherController = require('./controller/motherController')
 
+const pregnantController = require('./controller/pregnantController')
+
+const parentController = require('./controller/parentcontroller')
+
+const healthofficialController = require('./controller/healthOfficialController') 
+
+const complaintController = require('./controller/ComplaintController')
 
 
 
@@ -35,6 +42,14 @@ to login */
 
 router.post('/admin-log',usercontroller.loginAdminController)
 router.post('/login-worker',usercontroller.loginWorkerController)
+
+
+router.get('/all-user',usercontroller.getalluserController)
+
+
+router.put('/update-user/:id',usercontroller.updateusercontroller)
+
+router.delete('/delete-user/:id',usercontroller.deleteUserController)
 
 
 /* add child */
@@ -122,7 +137,59 @@ router.delete('/delete-childbeneficiaries/:id',childBeneficiaryController.delete
 router.post('/add-lact',motherController.addMotherController)
 
 
-router.get('all-mother',motherController)
+router.get('/all-mother',motherController.getAllMotherController)
+
+
+router.get('/a-mother/:id',motherController.getAMotherController)
+
+
+router.put('/update-lact/:id',motherController.updatemothercontroller)
+
+
+router.delete('/delete-lact/:id',motherController.deleteMotherController)
+
+
+
+
+/* pregnant */
+
+router.post('/add-pregnant',multer.single('document'),pregnantController.addPregnantController)
+
+
+router.get('/get-allpregnant',pregnantController.getallpregnantController)
+
+
+router.get('/getapregnant/:id',pregnantController.getApregnantController)
+
+
+router.put('/update-pregnant/:id',pregnantController.updatepregnantController)
+
+
+router.delete('/delete-pregnant/:id',pregnantController.deletepregnantController)
+
+
+
+router.post('/parent-register',parentController.ParentRegController)
+
+
+router.post('/parent-login',parentController.ParentLoginController)
+
+
+router.post('/health-login',healthofficialController.loginController)
+
+
+router.post('/add-complaint',complaintController.addComplaintsController)
+
+
+router.get('/get-complaint',complaintController.getallComplaintsController)
+
+
+router.get('/get-a-complaint',complaintController.getaComplaintController)
+
+
+
+router.put('/update-complaint/:id',complaintController.updateComplaintController)
+
 
 
 

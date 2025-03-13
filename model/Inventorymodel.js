@@ -21,6 +21,7 @@ const inventorySchema = new Schema({
       by: { type: String, ref: 'User', required: true }, // Updated field name
     },
   ],
+  
 });
 
 const Inventory = mongoose.model('Inventory', inventorySchema);

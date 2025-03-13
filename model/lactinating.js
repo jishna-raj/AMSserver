@@ -1,74 +1,97 @@
 const mongoose = require('mongoose');
 
 const lactatingMotherSchema = new mongoose.Schema({
- id:{
-  type:String,
-  unique:true,
-  required:true
-},
+  id: {
+    type: String,
+    unique: true,
+    required: true,
+  },
   name: {
     type: String,
-    required: true
+    required: true,
   },
-
-  dateOfBirth: { 
+  dateOfBirth: {
     type: Date,
-    required: true 
+    required: true,
   },
   gender: {
     type: String,
-    required: true 
+    required: true,
   },
   address: {
     type: String,
-    required: true 
+    required: true,
   },
   guardianName: {
     type: String,
-    required: true 
+    required: true,
   },
   guardianPhone: {
     type: String,
-    required: true
+    required: true,
   },
   bloodGroup: {
     type: String,
-    required: true 
+    required: true,
   },
   registrationDate: {
     type: Date,
-    default: Date.now 
+    default: Date.now,
   },
   assignedWorkerId: {
     type: String,
-    required: true 
+    required: true,
   },
   lastCheckupDate: {
-    type: Date 
+    type: Date,
   },
   currentStatus: {
     type: String,
-    required: true 
+    required: true,
   },
-
-  // Additional fields specific to Lactating Mothers
   lastDeliveryDate: {
     type: Date,
-    required: true // Date of the last delivery
+    required: true,
   },
   breastfeedingStatus: {
     type: String,
     enum: ['exclusive', 'partial', 'none'],
-    required: true // Status of breastfeeding
+    required: true,
   },
   nutritionalSupport: {
     type: Boolean,
-    default: false // Whether the mother is receiving nutritional support
+    default: false,
   },
   lactationSupportDetails: {
-    type: String // Additional details about lactation support
-  }
+    type: String,
+  },
+  // Include child details as an array of subdocuments
+  children: [
+    {
+      name: {
+        type: String,
+        required: true,
+      },
+      dateOfBirth: {
+        type: Date,
+        required: true,
+      },
+      gender: {
+        type: String,
+        required: true,
+      },
+      birthWeight: {
+        type: Number,
+        required: true,
+      },
+      breastfeedingStatus: {
+        type: String,
+        enum: ['exclusive', 'partial', 'none'],
+        required: true,
+      },
+    },
+  ],
 });
 
-const LactatingMother = mongoose.model('LactatingMother', lactatingMotherSchema);
-module.exports = LactatingMother;
+const LactatingMothers = mongoose.model('LactatingMothers', lactatingMotherSchema);
+module.exports = LactatingMothers;
