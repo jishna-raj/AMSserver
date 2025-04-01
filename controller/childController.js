@@ -194,3 +194,29 @@ exports.updateChildController = async (req, res) => {
       res.status(500).json({ message: 'Server error', error: error.message });
     }
   };
+
+
+  exports.getAChildByIdController = async (req, res) => {
+    try {
+      const { id } = req.params; // Get the child ID from the URL
+      
+      console.log(id);
+      
+  
+      // Find the child by ID
+      const child = await Children.findOne({ id });
+  
+      console.log(child);
+      
+  
+      if (!child) {
+        return res.status(404).json({ message: 'Child not found' });
+      }
+  
+      // Return the child details
+      res.status(200).json({ message: 'Child fetched successfully', child });
+    } catch (error) {
+      console.error('Error fetching child:', error);
+      res.status(500).json({ message: 'Server error', error: error.message });
+    }
+  };

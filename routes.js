@@ -19,6 +19,8 @@ const healthofficialController = require('./controller/healthOfficialController'
 
 const complaintController = require('./controller/ComplaintController')
 
+const notificationController = require('./controller/notificationController')
+
 
 
 
@@ -189,6 +191,19 @@ router.get('/get-a-complaint',complaintController.getaComplaintController)
 
 
 router.put('/update-complaint/:id',complaintController.updateComplaintController)
+
+
+
+router.post('/notification',notificationController.addnotificationController)
+
+
+router.get('/a-notification/:id',notificationController.getChildnotificationController)
+
+
+
+
+router.get('/parent-child/:id', childController.getAChildByIdController);
+
 
 
 

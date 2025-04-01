@@ -1,32 +1,31 @@
-const nodemailer = require('nodemailer');
+const twilio = require('twilio');
 
-// Create a transporter object using SMTP
-const transporter = nodemailer.createTransport({
-  service: 'gmail', // Use your email service (e.g., Gmail, Outlook)
-  auth: {
-    user: process.env.EMAIL_USER, // Your email address
-    pass: process.env.EMAIL_PASSWORD, // Your email password or app-specific password
-  },
-});
 
-// Function to send an email
-const sendEmail = async (to, subject, text) => {
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const twilioPhone = process.env.TWILIO_PHONE_NUMBER;
+
+const client = twilio(accountSid, authToken);
+
+exports.sendBulkSMS = async (message, phoneNumbers) => {
   try {
-    const mailOptions = {
-      from: process.env.EMAIL_USER, // Sender email address
-      to, // Recipient email address
-      subject, // Email subject
-      text, // Email body (plain text)
-    };
+    const results = await Promise.allSettled(
+      phoneNumbers.map(async (number) => {
+        return client.messages.create({
+          body: message,
+          from: twilioPhone,
+          to: number
+        });
+      })
+    );
 
-    // Send the email
-    const info = await transporter.sendMail(mailOptions);
-    console.log('Email sent:', info.response);
-    return true;
+    return results.map((result, index) => ({
+      phoneNumber: phoneNumbers[index],
+      status: result.status,
+      error: result.status === 'rejected' ? result.reason : null
+    }));
   } catch (error) {
-    console.error('Error sending email:', error);
-    return false;
+    console.error('Bulk SMS error:', error);
+    throw error;
   }
 };
-
-module.exports = { sendEmail };
