@@ -5,7 +5,7 @@ const childbeneficiaries = require('../model/ChildBeneficiaryModel')
 
 exports.addChildBeneficiaryController = async (req, res) => {
     try {
-      const { name, age, gender, dateOfBirth, parent, lastVisitDate, address, healthRecords, nutritionStatus, educationDetails, guardian, vaccinationDetails } = req.body;
+      const { name, age, gender, dateOfBirth, parent, lastVisitDate, address, healthRecords, nutritionStatus,   AdharNumber, guardian, vaccinationDetails } = req.body;
   
       // Check if a child with the same name and date of birth already exists
       const existingChild = await childbeneficiaries.findOne({ name, dateOfBirth,parent });
@@ -26,7 +26,7 @@ exports.addChildBeneficiaryController = async (req, res) => {
         parent,
         healthRecords,
         nutritionStatus,
-        educationDetails,
+        AdharNumber,
         guardian,
         lastVisitDate: lastVisitDate || null,
         vaccinationDetails: vaccinationDetails || []

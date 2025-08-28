@@ -10,7 +10,6 @@ exports.addInventoryController = async (req, res) => {
             quantity,
             unit,
             minimumThreshold,
-            unitPrice,
             supplier,
             expiryDate,
             lastRestocked,
@@ -20,7 +19,7 @@ exports.addInventoryController = async (req, res) => {
         } = req.body;
 
         // Validate required fields
-        if (!itemName || !category || !quantity || !unit || !minimumThreshold || !unitPrice || !supplier || alertTriggered === undefined) {
+        if (!itemName || !category || !quantity || !unit || !minimumThreshold || !supplier || alertTriggered === undefined) {
             return res.status(400).json({ message: 'Missing required fields' });
         }
 
@@ -42,7 +41,6 @@ exports.addInventoryController = async (req, res) => {
             itemName,
             category,
             minimumThreshold,
-            unitPrice,
             supplier,
 
         });
@@ -70,7 +68,6 @@ exports.addInventoryController = async (req, res) => {
                 quantity,
                 unit,
                 minimumThreshold,
-                unitPrice,
                 supplier,
                 expiryDate,
                 lastRestocked,

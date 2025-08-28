@@ -143,17 +143,7 @@ const childSchema = new mongoose.Schema({
       required: true,
     },
   },
-  nutritionStatus: {
-    date: {
-      type: Date,
-      required: true,
-    },
-    status: {
-      type: String,
-      required: true,
-      enum: ['Normal', 'Underweight', 'Overweight'],
-    },
-  },
+
  
 });
 

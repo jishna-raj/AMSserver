@@ -7,7 +7,6 @@ const inventorySchema = new Schema({
   quantity: { type: Number, required: true },
   unit: { type: String, required: true },
   minimumThreshold: { type: Number, required: true },
-  unitPrice: { type: Number, required: true },
   supplier: { type: String, required: true },
   expiryDate: { type: Date, required: true  }, // Optional
   lastRestocked: { type: Date, required: true  }, // Optional

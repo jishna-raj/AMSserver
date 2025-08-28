@@ -21,6 +21,8 @@ const complaintController = require('./controller/ComplaintController')
 
 const notificationController = require('./controller/notificationController')
 
+const beneNotificationController = require('./controller/BeneficiaryController')
+
 
 
 
@@ -203,6 +205,12 @@ router.get('/a-notification/:id',notificationController.getChildnotificationCont
 
 
 router.get('/parent-child/:id', childController.getAChildByIdController);
+
+
+/* beneNotifications */
+
+
+router.post('/add-beneNotifications',beneNotificationController.AddBeneNotification)
 
 
 

@@ -27,10 +27,9 @@ const childBeneficiarySchema = new mongoose.Schema({
     date: { type: Date, required: true },
     status: { type: String, required: true },
   },
-  educationDetails: {
-    preschoolName: { type: String, required: true },
-    enrollmentDate: { type: Date, required: true },
-    progress: { type: String, required: true }, // Changed from progressReport
+  AdharNumber: {
+    type:Number,
+    required:true,
   },
   guardian: {
     name: { type: String, required: true },

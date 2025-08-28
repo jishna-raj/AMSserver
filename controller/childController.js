@@ -18,7 +18,7 @@ exports.addChildController = async (req, res) => {
       allergies,
       dietaryPreferences,
       emergencyContact,
-      nutritionStatus,
+     
     } = req.body;
 
     const childImage = req.file.filename
@@ -45,7 +45,7 @@ exports.addChildController = async (req, res) => {
       allergies: JSON.parse(allergies),
       dietaryPreferences: JSON.parse(dietaryPreferences),
       emergencyContact: JSON.parse(emergencyContact),
-      nutritionStatus: JSON.parse(nutritionStatus),
+    
     });
 
     
@@ -135,7 +135,7 @@ exports.updateChildController = async (req, res) => {
       allergies,
       dietaryPreferences,
       emergencyContact,
-      nutritionStatus,
+     
       // Remove childImage
     } = req.body;
   
@@ -156,8 +156,7 @@ exports.updateChildController = async (req, res) => {
           allergies: JSON.parse(allergies),
           dietaryPreferences: JSON.parse(dietaryPreferences),
           emergencyContact: JSON.parse(emergencyContact),
-          nutritionStatus: JSON.parse(nutritionStatus),
-          // Remove childImage
+         
         },
         { new: true }
       );
